@@ -17,7 +17,7 @@ Using Dagger was purely out of interest as it is incredibly fast and lightweight
 To install the program:
 
 ```
-$ git clone git@github.com:brooms/PiApproximator.git
+$ git clone https://github.com/brooms/PiApproximator.git
 $ cd PiApproximator/
 ```
 
@@ -66,9 +66,7 @@ There are a number of possible improvements that could be made from a performanc
 1. Chunk up the work to each actor based on the number of steps and number of actors. Dealing with the edge case
 where the number of steps is not nicely divisible by the number of actors. This has the potential to greatly speed
 up the approximation process eliminating the overhead involved in marshalling & unmarshalling messages for tiny computation.
-2. Somehow have the ability to dynamically detected the most optimum configuration for processing the workload. This will
-need to be handled at runtime and may involve adjusting the thread affinity.
-3. The use of BigDecimal to improve the accuracy of the computations. I didn't want to have to deal with all the issues around
-boxing and unboxing of these and computations using BigDecimals.
+2. Somehow have the ability to dynamically detected the most optimum configuration for processing the workload. This will need to be handled at runtime and may involve adjusting the thread affinity.
+3. The use of BigDecimal to improve the accuracy of the computations. I didn't want to have to deal with all the issues around boxing and unboxing of these and computations using BigDecimals.
 4. Try using the inbuilt Java parallel streams instead of the actor model, this would simplify the implementation but it wouldn't be as interesting.
 5. Plugging in code coverage and other metric generating tools (SonarQube, FindBugs, PMD, Technical Debt :-( ) into the build process.
