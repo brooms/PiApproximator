@@ -19,6 +19,8 @@
         <surefire.version>2.19</surefire.version>
         <compiler.version>3.3</compiler.version>
         <checkstyle.version>2.17</checkstyle.version>
+        <jar.version>2.6</jar.version>
+        <assembly.version>2.6</assembly.version>
 
         <!-- Java Source Version -->
         <java.version>1.8</java.version>
@@ -48,6 +50,7 @@
             <groupId>com.google.dagger</groupId>
             <artifactId>dagger-compiler</artifactId>
             <version>${dagger.version}</version>
+            <scope>compile</scope>
             <optional>true</optional>
         </dependency>
         <!-- Test Dependencies -->
@@ -141,6 +144,45 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${jar.version}</version>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>au.com.brooms.PiApproximatorApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${assembly.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>au.com.brooms.PiApproximatorApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>
