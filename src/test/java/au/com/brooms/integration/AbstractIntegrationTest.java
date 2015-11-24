@@ -1,8 +1,5 @@
 package au.com.brooms.integration;
 
-import scala.concurrent.duration.Duration;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Abstract integration test containing common functionality used to configure each approximation.

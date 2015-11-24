@@ -37,13 +37,18 @@ public class Worker extends UntypedActor {
   }
 
   /**
-   * Perform the calculation at the given step.
+   * Perform the calculation for the given step range.
    *
-   * @param step The step
-   * @return The approximation at the step
+   * @param startStep The start step to start from
+   * @param toStep The step to calculate to
+   * @return The approximation for the step range
    */
-  private double calculate(long step) {
-    return approximation.calculate(step);
+  private double calculate(long startStep, long toStep) {
+    double result = 0;
+    for (long step = startStep; step < toStep; step++) {
+      result += approximation.calculate(step);
+    }
+    return result;
   }
 
   /**
@@ -59,7 +64,7 @@ public class Worker extends UntypedActor {
       Work work = (Work) message;
 
       // Perform calculation according to the approximation
-      double calculation = calculate(work.getStep());
+      double calculation = calculate(work.getStartStep(), work.getToStep());
 
       // Wrap the calculation in a result object
       WorkerResult result = new WorkerResult(calculation, this.name);

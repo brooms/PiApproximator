@@ -70,3 +70,10 @@ up the approximation process eliminating the overhead involved in marshalling & 
 3. The use of BigDecimal to improve the accuracy of the computations. I didn't want to have to deal with all the issues around boxing and unboxing of these and computations using BigDecimals.
 4. Try using the inbuilt Java parallel streams instead of the actor model, this would simplify the implementation but it wouldn't be as interesting.
 5. Plugging in code coverage and other metric generating tools (SonarQube, FindBugs, PMD, Technical Debt :-( ) into the build process.
+
+
+### Update
+
+Ok, I couldn't help myself. Added work chunking based on the number of workers to improve performance. Handles the edge case where the amount of work is not cleanly divisible by the number of workers.
+
+Details of how everything is divided up can be seen using debug log level. A possible way to improving the remainder situation is to spread it evenly across all workers, or spawn an additional worker to handle the remainder.
