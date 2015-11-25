@@ -149,7 +149,7 @@ public class Controller extends UntypedActor {
 
   /**
    * Route the work to the workers based on the numberOfGroups (could be less than the number of
-   * workers, and a chunkSize for each worker
+   * workers, and a chunkSize for each worker.
    *
    * @param numberOfGroups The number of groups of work
    * @param chunkSize      The chunk of work for each worker
