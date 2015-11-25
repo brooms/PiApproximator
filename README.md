@@ -78,7 +78,7 @@ up the approximation process eliminating the overhead involved in marshalling & 
 3. The use of BigDecimal to improve the accuracy of the computations. I didn't want to have to deal with all the issues around boxing and unboxing of these and computations using BigDecimals.
 4. Try using the inbuilt Java parallel streams instead of the actor model, this would simplify the implementation but it wouldn't be as interesting.
 5. Plugging in code coverage and other metric generating tools (SonarQube, FindBugs, PMD, Technical Debt :-( ) into the build process.
-
+6. More test cases to test edge cases and exception generating cases
 
 ## Update
 
