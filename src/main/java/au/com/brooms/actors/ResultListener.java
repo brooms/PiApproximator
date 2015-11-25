@@ -28,9 +28,9 @@ public class ResultListener extends UntypedActor {
 
       ApproximationResult approximation = (ApproximationResult) message;
 
-      // Print out the result
-      log.info("Pi Approximation: %0.20f", approximation.getApproximation());
-      log.info("Total time (ms): %d", approximation.getDuration().toMillis());
+      // Print out the result (scala syntax)
+      log.info("Pi Approximation: {}", approximation.getApproximation());
+      log.info("Total time (ms): {}", approximation.getDuration().toMillis());
 
       // Terminate the actor system
       getContext().system().terminate();
