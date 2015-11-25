@@ -6,7 +6,7 @@ A small program that is able to calculate the estimation to the constant Pi usin
 - Fabrice-Bellard
 - Bailey-Borwein-Plouffe
 
-Pi will be printed to stdout to 20 decimal places. The program default approximation method is Gregory-Leibniz as per the requirements.
+Pi will be printed to stdout to 20 decimal places. The default approximation method is Gregory-Leibniz as per the requirements.
 
 The program uses the Dagger dependency injection framework to initialise and create a factory containing each estimation technique. Akka and the actor model with simple round robin routing is used to perform the calculation in parallel. The model consists of a Controller which will create a number of Workers based on configuration parameters and a ResultListener to print out the result and cleanly shutdown the actor system. Currently each worker only process a single step (calculation) of the estimation and returns the result, there are better ways of handling this as discussed in the section Possible Improvements.
 
