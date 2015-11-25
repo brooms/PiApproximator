@@ -26,8 +26,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Controller used to configure the approximation, create workers and route traffic to the workers.
  *
- * <p>As results are produced by the workers, the controller will listen for these results to calculate
- * the final approximation. It will also handle any post-processing.</p>
+ * <p>As results are produced by the workers, the controller will listen for these results to
+ * calculate the final approximation. It will also handle any post-processing.</p>
  *
  * @author Brooms
  * @version 0.1.0
@@ -44,6 +44,7 @@ public class Controller extends UntypedActor {
 
   private double pi;
   private long results;
+  private long expectedResults;
 
   // Start time
   private final long start = System.currentTimeMillis();
@@ -56,10 +57,10 @@ public class Controller extends UntypedActor {
   /**
    * Default constructor.
    *
-   * @param approximation The approximation method
-   * @param numberOfSteps The number of steps to estimate pi to
+   * @param approximation   The approximation method
+   * @param numberOfSteps   The number of steps to estimate pi to
    * @param numberOfWorkers The number of workers to use in the estimation
-   * @param listener The result listener to notify when the estimation is complete
+   * @param listener        The result listener to notify when the estimation is complete
    */
   public Controller(final Approximation approximation, final long numberOfSteps,
                     final int numberOfWorkers, final ActorRef listener) {
@@ -68,6 +69,8 @@ public class Controller extends UntypedActor {
     this.numberOfWorkers = numberOfWorkers;
     this.listener = listener;
     this.approximation = approximation;
+
+    this.expectedResults = numberOfWorkers;
 
     // Number of bundles of work
     this.chunkSize = numberOfSteps / numberOfWorkers;
@@ -99,26 +102,20 @@ public class Controller extends UntypedActor {
    */
   public void onReceive(Object message) {
 
-
     if (message instanceof StartApproximation) {
 
       log.info("Starting approximation for " + numberOfSteps + " iterations.");
       log.info("Work divided across " + numberOfWorkers + " workers.");
 
-      // Route work to the workers
-      for (long group = 0; group < numberOfWorkers; group++) {
-        long start = group * chunkSize;
-        long end = start + chunkSize;
 
-        if (group == numberOfWorkers - 1) {
-          log.debug("Work remainder is " + chunkRemainder);
-          end += chunkRemainder;
-        }
-
-        log.debug("Chunk for Worker " + group + " is [" + start + ", " + end + "]");
-
-        router.route(new Work(start, end), getSelf());
+      // Handle the edge case where there is less work than the number of workers
+      if (numberOfSteps < numberOfWorkers) {
+        expectedResults = numberOfSteps;
+        routeWork(numberOfSteps, 1);
+      } else {
+        routeWork(numberOfWorkers, chunkSize);
       }
+
 
     } else if (message instanceof WorkerResult) {
 
@@ -133,7 +130,7 @@ public class Controller extends UntypedActor {
 
       // Wait until all results have been received (since there is no chunking, it will
       // be the number of steps/iterations)
-      if (results == numberOfWorkers) {
+      if (results == expectedResults) {
 
         // Apply any final calculations
         pi = approximation.apply(pi);
@@ -147,6 +144,30 @@ public class Controller extends UntypedActor {
       }
     } else {
       unhandled(message);
+    }
+  }
+
+  /**
+   * Route the work to the workers based on the numberOfGroups (could be less than the number of
+   * workers, and a chunkSize for each worker
+   *
+   * @param numberOfGroups The number of groups of work
+   * @param chunkSize      The chunk of work for each worker
+   */
+  private void routeWork(final long numberOfGroups, final long chunkSize) {
+    // Route work to the workers
+    for (long group = 0; group < numberOfGroups; group++) {
+      long start = group * chunkSize;
+      long end = start + chunkSize;
+
+      if (group == numberOfWorkers - 1) {
+        log.debug("Work remainder is " + chunkRemainder);
+        end += chunkRemainder;
+      }
+
+      log.debug("Chunk for Worker " + group + " is [" + start + ", " + end + "]");
+
+      router.route(new Work(start, end), getSelf());
     }
   }
 }

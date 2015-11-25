@@ -1,10 +1,9 @@
 package au.com.brooms;
 
 import au.com.brooms.dagger.ApproximatorModule;
+import au.com.brooms.error.InvalidParametersException;
 
 import dagger.Component;
-
-import java.util.logging.Logger;
 
 /**
  * PiApproximationApp - a main class to launch the PiApproximation actor system This application will estimate the value
@@ -49,11 +48,21 @@ public class PiApproximatorApp {
     } else {
 
       // Parse the arguments
-      long numberOfSteps = Long.parseLong(args[0]);
-      int numberOfWorkers = Integer.parseInt(args[1]);
+      try {
+        long numberOfSteps = Long.parseLong(args[0]);
+        int numberOfWorkers = Integer.parseInt(args[1]);
 
-      // Start the approximation calculation
-      approximation.piApproximation().calculate(numberOfSteps, numberOfWorkers, args[2]);
+        // Start the approximation calculation
+        approximation.piApproximation().calculate(numberOfSteps, numberOfWorkers, args[2]);
+
+      } catch (NumberFormatException ex) {
+        // Will occur if bad numbers are passed as arguments
+        System.out.println("Unable to parse numberOfSteps or numberOfWorkers. Not a valid number");
+        ex.printStackTrace();
+      } catch (InvalidParametersException iex) {
+        // Will occur if the numberOfSteps or numberOfWorkers <= 0
+        iex.printStackTrace();
+      }
     }
   }
 

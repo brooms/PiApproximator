@@ -6,11 +6,19 @@ A small program that is able to calculate the estimation to the constant Pi usin
 - Fabrice-Bellard
 - Bailey-Borwein-Plouffe
 
+Pi will be printed to stdout to 20 decimal places.
+
 The program uses the Dagger dependency injection framework to initialise and create a factory containing each estimation technique. Akka and the actor model with simple round robin routing is used to perform the calculation in parallel. The model consists of a Controller which will create a number of Workers based on configuration parameters and a ResultListener to print out the result and cleanly shutdown the actor system. Currently each worker only process a single step (calculation) of the estimation and returns the result, there are better ways of handling this as discussed in the section Possible Improvements.
 
 The Actor Model was chosen as it is a safe, lightweight, non-blocking, asynchronous and easy to use architectural pattern designed for concurrent operations. 
 
 Using Dagger was purely out of interest as it is incredibly fast and lightweight although it lacks features of other DI frameworks like Guice and Spring DI. The use of Dagger DI could be more widespread than just for injecting estimations into a factory and full use of DI throughout the actor framework is possible. Due to time constraints, a sore back and sore eyes I'll stay away from this for now.
+
+Handling of edge cases:
+- When the number of workers is greater than the number of steps, the work will be divided across the workers as evenly as possible
+- If the arguments passed to numberOfWorkers and numberOfSteps are not numbers, it will complain gracefully
+- If the numberOfWorkers and numberOfSteps are less than or equal to zero, an InvalidParametersException will be thrown
+- It is safe to assume that the Controller has valid input parameters, it will either be invoked from a test case or from the App entry point
 
 ## Installation Instructions
 
@@ -72,8 +80,8 @@ up the approximation process eliminating the overhead involved in marshalling & 
 5. Plugging in code coverage and other metric generating tools (SonarQube, FindBugs, PMD, Technical Debt :-( ) into the build process.
 
 
-### Update
+## Update
 
-Ok, I couldn't help myself. Added work chunking based on the number of workers to improve performance. Handles the edge case where the amount of work is not cleanly divisible by the number of workers.
+Added work chunking based on the number of workers to improve performance. Handles the edge case where the amount of work is not cleanly divisible by the number of workers.
 
 Details of how everything is divided up can be seen using debug log level. A possible way to improving the remainder situation is to spread it evenly across all workers, or spawn an additional worker to handle the remainder.

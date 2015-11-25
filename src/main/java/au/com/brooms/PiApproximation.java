@@ -9,6 +9,7 @@ import au.com.brooms.actors.ResultListener;
 import au.com.brooms.actors.messages.StartApproximation;
 import au.com.brooms.approximation.Approximation;
 import au.com.brooms.approximation.ApproximationFactory;
+import au.com.brooms.error.InvalidParametersException;
 
 import javax.inject.Inject;
 
@@ -37,8 +38,18 @@ public class PiApproximation {
    * @param numberOfSteps   The number of steps to estimate pi to
    * @param numberOfWorkers The number of actors in the akka system
    * @param name            The name of the approximation method
+   * @throws InvalidParametersException When invalid input parameters are passed to the approximation
    */
-  public void calculate(final long numberOfSteps, final int numberOfWorkers, final String name) {
+  public void calculate(final long numberOfSteps, final int numberOfWorkers, final String name)
+      throws InvalidParametersException {
+
+    if (numberOfSteps <= 0) {
+      throw new InvalidParametersException("Invalid number of steps to perform "
+          + numberOfSteps + ", expected > 0.");
+    } else if (numberOfWorkers <= 0) {
+      throw new InvalidParametersException("Invalid number of workers "
+          + numberOfWorkers + ", expected > 0.");
+    }
 
     // Create and initialise the akka system
     ActorSystem system = ActorSystem.create("PiApproximation");

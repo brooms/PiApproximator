@@ -9,11 +9,6 @@ package au.com.brooms.integration;
 abstract class AbstractIntegrationTest {
 
   /**
-   * Really rough value of Pi used to validate results
-   */
-  protected static final Double BASIC_PI = 3.1415;
-
-  /**
    * Number of steps to estimate Pi to
    */
   protected static final long numberOfSteps = 1000000l;

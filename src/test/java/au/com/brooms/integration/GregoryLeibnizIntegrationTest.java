@@ -76,13 +76,13 @@ public class GregoryLeibnizIntegrationTest extends AbstractIntegrationTest {
       // Some basic asserts - we should have a result and the approximation should be pretty close to Pi,
       // something is clearly wrong if the calculation if executes in under zero milliseconds
       Assert.assertNotNull(result);
-      Assert.assertTrue(result.getApproximation() > BASIC_PI);
+      Assert.assertTrue(result.getApproximation() > 0);
       Assert.assertTrue(result.getDuration().toMillis() > 0);
 
       // Print out the results
       System.out.println("--------------------------------------------------------------------------------");
-      System.out.println("Pi approximation (" + approximation.name() + "): " + result.getApproximation());
-      System.out.println("Duration: " + result.getDuration());
+      System.out.printf("Pi approximation (%s): %.20f%n", approximation.name(), result.getApproximation());
+      System.out.printf("Duration (ms): %d%n", result.getDuration().toMillis());
       System.out.println("--------------------------------------------------------------------------------");
 
     }};
