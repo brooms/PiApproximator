@@ -64,7 +64,7 @@ $ java -jar PiApproximationApp.jar <numberOfSteps> <numberOfWorkers> <method>
 Where:
 - <i>numberOfSteps</i> is the number of steps the calculation should approximate Pi to
 - <i>numberOfWorkers</i> is the number of concurrent workers performing calculations
-- <i>method</i> is the approximation method to use, possible values are Madhava-Leibniz, Gregory-Leibniz, Fabrice-Bellard, Bailey-Borwein-Plouffe. The default approximation method being Gregory-Leibniz. 
+- <i>method</i> (optional) is the approximation method to use, possible values are Madhava-Leibniz, Gregory-Leibniz, Fabrice-Bellard, Bailey-Borwein-Plouffe. The default approximation method being Gregory-Leibniz. 
 
 
 ## Possible Improvements
