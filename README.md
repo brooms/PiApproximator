@@ -66,7 +66,10 @@ Where:
 - <i>numberOfWorkers</i> is the number of concurrent workers performing calculations
 - <i>method</i> (optional) is the approximation method to use, possible values are Madhava-Leibniz, Gregory-Leibniz, Fabrice-Bellard, Bailey-Borwein-Plouffe. The default approximation method being Gregory-Leibniz. 
 
-
+E.g.
+```
+$ java -jar PiApproximationApp.jar 1000000 10
+```
 ## Possible Improvements
 
 There are a number of possible improvements that could be made from a performance and accuracy perspective:
