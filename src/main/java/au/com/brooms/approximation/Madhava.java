@@ -10,6 +10,12 @@ package au.com.brooms.approximation;
  */
 public class Madhava implements Approximation {
 
+  /**
+   * Calculate the Madhava Leibniz step for the approximation to Pi.
+   *
+   * @param step The step number
+   * @return The step value
+   */
   public Double calculate(final long step) {
 
     double stepD = (double) step;
