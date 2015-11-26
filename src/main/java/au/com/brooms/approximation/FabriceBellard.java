@@ -20,8 +20,9 @@ public class FabriceBellard implements Approximation {
    * @param step The step number
    * @return The step value
    */
-  public Double calculate(long step) {
-    double stepD = step;
+  public Double calculate(final long step) {
+
+    double stepD = (double) step;
 
     double part1 = Math.pow(-1, stepD) / Math.pow(2, 10 * stepD);
     double part2 = (-1.0 * (Math.pow(2, 5) / (4 * stepD + 1)));
@@ -36,7 +37,7 @@ public class FabriceBellard implements Approximation {
     return part1 * firstSummation;
   }
 
-  public Double apply(double calculation) {
+  public Double apply(final double calculation) {
     // Apply a final calculation which is a multiplier
     return (1 / (Math.pow(2, 6))) * calculation;
   }

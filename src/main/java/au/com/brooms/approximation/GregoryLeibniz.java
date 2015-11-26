@@ -16,11 +16,11 @@ public class GregoryLeibniz implements Approximation {
    * @param step The step number
    * @return The step value
    */
-  public Double calculate(long step) {
+  public Double calculate(final long step) {
     return Math.pow(-1, (double) step) / (2 * (double) step + 1);
   }
 
-  public Double apply(double calculation) {
+  public Double apply(final double calculation) {
     return 4 * calculation;
   }
 

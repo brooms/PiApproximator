@@ -79,8 +79,22 @@ public class Controller extends UntypedActor {
 
     log.info("Initialising system with " + numberOfWorkers + " workers.");
 
+    // Initialise the workers
+    this.router = initialiseWorkers(approximation, numberOfWorkers);
+
+  }
+
+  /**
+   * Initialise the workers and create basic round robin routing to the workers.
+   *
+   * @param approximation   The approximation method to help with worker initialisation
+   * @param numberOfWorkers The number of workers to create
+   * @return A router for routing work to the workers
+   */
+  private Router initialiseWorkers(final Approximation approximation, final int numberOfWorkers) {
+
     // Create the workers
-    List<Routee> routees = new ArrayList<Routee>();
+    List<Routee> routees = new ArrayList<>();
     for (int i = 0; i < numberOfWorkers; i++) {
       ActorRef workerActorRef = getContext().actorOf(Props.create(Worker.class, approximation,
           "Worker " + i));
@@ -90,8 +104,7 @@ public class Controller extends UntypedActor {
     }
 
     log.info("Using basic Round Robin routing.");
-    router = new Router(new RoundRobinRoutingLogic(), routees);
-
+    return new Router(new RoundRobinRoutingLogic(), routees);
   }
 
   /**

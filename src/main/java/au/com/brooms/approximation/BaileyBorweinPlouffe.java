@@ -20,7 +20,7 @@ public class BaileyBorweinPlouffe implements Approximation {
    * @param step The step number
    * @return The step value
    */
-  public Double calculate(long step) {
+  public Double calculate(final long step) {
 
     double part1 = 1 / Math.pow(16, (double) step);
     double part2 = 4 / ((8 * (double) step) + 1);
@@ -35,7 +35,7 @@ public class BaileyBorweinPlouffe implements Approximation {
     return part1 * thirdSummation;
   }
 
-  public Double apply(double calculation) {
+  public Double apply(final double calculation) {
     return calculation;
   }
 

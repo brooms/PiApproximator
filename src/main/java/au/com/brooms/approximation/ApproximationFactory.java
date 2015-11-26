@@ -52,7 +52,7 @@ public class ApproximationFactory {
    * @param name The name of the approximation method
    * @return The approximation method or if the method is not found, default to Gregory-Leibniz approximation
    */
-  public Approximation getApproximation(String name) {
+  public Approximation getApproximation(final String name) {
 
     // Initialise the map if it is empty, lazy initialise here allows for approximation methods to be injected into
     // this instance by the Dagger framework

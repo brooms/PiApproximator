@@ -11,7 +11,7 @@ public class WorkerResult {
   private Double value;
   private String id;
 
-  public WorkerResult(Double value, String id) {
+  public WorkerResult(final Double value, final String id) {
     this.value = value;
     this.id = id;
   }
@@ -20,7 +20,7 @@ public class WorkerResult {
     return value;
   }
 
-  public void setValue(Double value) {
+  public void setValue(final Double value) {
     this.value = value;
   }
 
@@ -28,7 +28,7 @@ public class WorkerResult {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(final String id) {
     this.id = id;
   }
 }

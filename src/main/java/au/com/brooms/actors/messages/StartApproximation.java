@@ -7,6 +7,8 @@ package au.com.brooms.actors.messages;
  * @version 0.1.0
  */
 public class StartApproximation {
+
   public StartApproximation() {
   }
+
 }

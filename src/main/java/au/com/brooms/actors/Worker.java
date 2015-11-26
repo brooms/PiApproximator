@@ -43,7 +43,7 @@ public class Worker extends UntypedActor {
    * @param toStep The step to calculate to
    * @return The approximation for the step range
    */
-  private double calculate(long startStep, long toStep) {
+  private double calculate(final long startStep, final long toStep) {
     double result = 0;
     for (long step = startStep; step < toStep; step++) {
       result += approximation.calculate(step);
@@ -89,7 +89,7 @@ public class Worker extends UntypedActor {
     return name;
   }
 
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 

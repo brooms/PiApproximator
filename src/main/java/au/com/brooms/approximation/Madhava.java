@@ -10,11 +10,14 @@ package au.com.brooms.approximation;
  */
 public class Madhava implements Approximation {
 
-  public Double calculate(long step) {
-    return Math.pow(-1, step) / ((2 * step + 1) * Math.pow(3, step));
+  public Double calculate(final long step) {
+
+    double stepD = (double) step;
+
+    return Math.pow(-1, stepD) / ((2 * stepD + 1) * Math.pow(3, stepD));
   }
 
-  public Double apply(double calculation) {
+  public Double apply(final double calculation) {
     // Apply a multiplier
     return Math.sqrt(12) * calculation;
   }

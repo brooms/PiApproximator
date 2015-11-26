@@ -14,7 +14,7 @@ public class ApproximationResult {
   private final Double approximation;
   private final Duration duration;
 
-  public ApproximationResult(Double approximation, Duration duration) {
+  public ApproximationResult(final Double approximation, final Duration duration) {
     this.approximation = approximation;
     this.duration = duration;
   }
